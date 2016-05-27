@@ -1,3 +1,7 @@
+Param(
+    [string] $appId
+ )
+
 [string]$original=
 @'
 namespace VkDownloader.Settings
@@ -9,4 +13,4 @@ namespace VkDownloader.Settings
 }}
 '@
 
-$original -f $env:appId | Out-File -FilePath "VkDownloader.Settings\RealAppId.cs" 
+$original -f $appId | Out-File -FilePath "VkDownloader.Settings\RealAppId.cs" 
