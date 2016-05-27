@@ -73,6 +73,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -96,6 +97,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="UserControls\VkAuthUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AuthView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -106,8 +115,15 @@
     </Compile>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Notifications\AuthNotification.cs" />
+    <Compile Include="UserControls\VkAuthUserControl.xaml.cs">
+      <DependentUpon>VkAuthUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\AuthViewModel.cs" />
+    <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\AuthView.xaml.cs">
+      <DependentUpon>AuthView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -142,6 +158,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VkDownloader.Settings.Win\VkDownloader.Settings.Win.csproj">
+      <Project>{e6f94901-2071-4b10-bcc5-7903c3dcf79b}</Project>
+      <Name>VkDownloader.Settings.Win</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VkDownloader.Settings\VkDownloader.Settings.csproj">
       <Project>{c88bdeee-e9cc-4823-9bb0-0ec3b9f640c2}</Project>
       <Name>VkDownloader.Settings</Name>

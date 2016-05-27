@@ -6,6 +6,7 @@
     {
         public AuthNotification(string appId)
         {
+            Title = "Login";
             ApplicationId = appId;
             AccessToken = string.Empty;
         }

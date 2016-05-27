@@ -18,16 +18,14 @@
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-            RegisterTypeIfMissing(typeof(ISettings), typeof(Settings), true);
+            Container.RegisterInstance<ISettings>(new Settings.Win.Settings());
         }
 
         protected override DependencyObject CreateShell()
         {
             return Container.Resolve<MainView>();
         }
-
         
-
         protected override void InitializeShell()
         {
             Application.Current.MainWindow.Show();

@@ -234,4 +234,4 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
-/VkDownloader/VkDownloader.Settings/RealAppId.cs
+/VkDownloader/VkDownloader.Settings.Win/RealAppId.cs

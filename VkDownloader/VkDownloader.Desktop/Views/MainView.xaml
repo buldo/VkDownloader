@@ -5,10 +5,67 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VkDownloader.Desktop"
         xmlns:mvvm="http://prismlibrary.com/"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:viewModels="clr-namespace:VkDownloader.Desktop.ViewModels"
+        xmlns:views="clr-namespace:VkDownloader.Desktop.Views"
         mvvm:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
         Title="MainView" Height="350" Width="525">
-    <Grid>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <mvvm:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+        <mvvm:InteractionRequestTrigger SourceObject="{Binding AuthInteractionRequest, Mode=OneWay}">
+            <mvvm:PopupWindowAction IsModal="True">
+                <mvvm:PopupWindowAction.WindowStyle>
+                    <Style TargetType="Window">
+                        <Setter Property="Width" Value="800"/>
+                        <Setter Property="Height" Value="600"/>
+                    </Style>
+                </mvvm:PopupWindowAction.WindowStyle>
+                <mvvm:PopupWindowAction.WindowContent>
+                    <views:AuthView/>
+                </mvvm:PopupWindowAction.WindowContent>
+            </mvvm:PopupWindowAction>
+        </mvvm:InteractionRequestTrigger>
         
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="75"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition MinWidth="75"/>
+            </Grid.ColumnDefinitions>
+            <DockPanel Grid.Column="0">
+                
+            </DockPanel>
+            <ListView  ItemsSource="{Binding Dialogs}" SelectionMode="Single">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="viewModels:DialogViewModel">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="1" Text="{Binding DialogName}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <GridSplitter Grid.Column="1"
+                          HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="3"
+                          Background="LightGray" ShowsPreview="True" />
+        </Grid>
+        
+        <StatusBar Grid.Row="1">
+            <TextBlock Text="{Binding Name, Mode=OneWay}"></TextBlock>
+        </StatusBar>
     </Grid>
 </Window>

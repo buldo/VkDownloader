@@ -9,6 +9,7 @@ using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using VkDownloader.Desktop.Notifications;
 using VkDownloader.Settings;
+using VkNet;
 
 namespace VkDownloader.Desktop.ViewModels
 {
@@ -19,31 +20,48 @@ namespace VkDownloader.Desktop.ViewModels
 
         private readonly DelegateCommand _okCommand;
         private readonly DelegateCommand _cancelCommand;
+
+        private string _appId = string.Empty;
+        private string _accessToken = string.Empty;
+
         private AuthNotification _notification;
 
         #endregion // Fields
-
-        public AuthViewModel()
+        public string AppId
         {
-            _okCommand = new DelegateCommand(ExecuteOk);
-            _cancelCommand = new DelegateCommand(ExecuteCancel);
+            get
+            {
+                return _appId;
+            }
+
+            set
+            {
+                SetProperty(ref _appId, value);
+            }
         }
-        
-        public string Login { get; set; }
 
-        public string Password { get; set; }
-
-        public ICommand OkCommand => _okCommand;
-
-        public ICommand CancelCommand => _cancelCommand;
-
-        private void ExecuteOk()
+        public string AccessToken
         {
-            
+            get
+            {
+                return _accessToken;
+            }
+
+            set
+            {
+                SetProperty(ref _accessToken, value);
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    _notification.Confirmed = true;
+                    _notification.AccessToken = value;
+                    FinishInteraction();
+                }
+            }
         }
 
         private void ExecuteCancel()
         {
+            _notification.Confirmed = false;
             FinishInteraction.Invoke();
         }
 
@@ -57,6 +75,7 @@ namespace VkDownloader.Desktop.ViewModels
             set
             {
                 SetProperty(ref _notification, (AuthNotification) value);
+                AppId = _notification.ApplicationId;
             }
         }
 
