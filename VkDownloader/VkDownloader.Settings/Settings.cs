@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VkDownloader.Settings
+﻿namespace VkDownloader.Settings
 {
-    public class Settings : ISettings
+    public partial class Settings : ISettings
     {
-        public string AppId => "5479860";
+        public string AppId => _appId;
     }
 }

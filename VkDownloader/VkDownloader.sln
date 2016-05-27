@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VkDownloader.Desktop", "VkD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VkDownloader.Settings", "VkDownloader.Settings\VkDownloader.Settings.csproj", "{C88BDEEE-E9CC-4823-9BB0-0EC3B9F640C2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CDE5081D-93CD-4EA2-94FA-CB06A1030F57}"
+	ProjectSection(SolutionItems) = preProject
+		PreBuild.ps1 = PreBuild.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
