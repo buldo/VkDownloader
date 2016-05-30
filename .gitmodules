@@ -1,0 +1,3 @@
+[submodule "WinVkSdk"]
+	path = WinVkSdk
+	url = https://github.com/buldo/WinVkSdk.git
