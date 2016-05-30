@@ -97,13 +97,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="UserControls\VkAuthUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\AuthView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -115,9 +111,6 @@
     </Compile>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Notifications\AuthNotification.cs" />
-    <Compile Include="UserControls\VkAuthUserControl.xaml.cs">
-      <DependentUpon>VkAuthUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\AuthViewModel.cs" />
     <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -158,6 +151,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\WinVkSdk\Bld.WinVkSdk\Bld.WinVkSdk.Wpf\Bld.WinVkSdk.Wpf.csproj">
+      <Project>{6abaac38-1176-42b4-b3b1-f139e1dbd745}</Project>
+      <Name>Bld.WinVkSdk.Wpf</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VkDownloader.Settings.Win\VkDownloader.Settings.Win.csproj">
       <Project>{e6f94901-2071-4b10-bcc5-7903c3dcf79b}</Project>
       <Name>VkDownloader.Settings.Win</Name>

@@ -5,6 +5,7 @@ using System.Windows.Data;
 using Prism.Interactivity.InteractionRequest;
 using VkDownloader.Desktop.Notifications;
 using VkNet;
+using VkNet.Exception;
 using VkNet.Model.RequestParams;
 
 namespace VkDownloader.Desktop.ViewModels
@@ -83,16 +84,21 @@ namespace VkDownloader.Desktop.ViewModels
             
             _api.Authorize(_settings.AccessToken);
 
+            try
+            {
+                var profile = _api.Account.GetProfileInfo();
+                Name = $"{profile.FirstName} {profile.LastName}";
+            }
+            catch (UserAuthorizationFailException ex)
+            {
+                return false;
+            }
+
             return _api.IsAuthorized;
         }
 
         private async void ReloadDialogsAsync()
         {
-            var profile = _api.Account.GetProfileInfo();
-            Name = $"{profile.FirstName} {profile.LastName}";
-
-            
-
             await Task.Run(() =>
             {
 

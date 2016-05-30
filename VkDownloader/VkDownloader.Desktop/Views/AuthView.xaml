@@ -1,14 +1,17 @@
 ﻿<UserControl x:Class="VkDownloader.Desktop.Views.AuthView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:VkDownloader.Desktop.Views"
-             xmlns:userControls="clr-namespace:VkDownloader.Desktop.UserControls"
+             xmlns:wpf="clr-namespace:Bld.WinVkSdk.Wpf;assembly=Bld.WinVkSdk.Wpf"
              xmlns:mvvm="http://prismlibrary.com/"
-             mc:Ignorable="d"
-             mvvm:ViewModelLocator.AutoWireViewModel="True">
+             xmlns:viewModels="clr-namespace:VkDownloader.Desktop.ViewModels"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance viewModels:AuthViewModel}"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
+             d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <userControls:VkAuthUserControl ApplicationId="{Binding AppId}" Token="{Binding AccessToken}"/>
+        <wpf:VkAuthUserControl ApplicationId="{Binding AppId}" Token="{Binding AccessToken}" ApiVersionString="5.52" PermissionsString="friends,messages"/>
     </Grid>
 </UserControl>

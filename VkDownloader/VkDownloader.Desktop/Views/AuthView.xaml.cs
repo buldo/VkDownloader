@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace VkDownloader.Desktop.Views
@@ -17,7 +18,7 @@ namespace VkDownloader.Desktop.Views
     /// <summary>
     /// Логика взаимодействия для AuthView.xaml
     /// </summary>
-    public partial class AuthView 
+    public partial class AuthView : UserControl
     {
         public AuthView()
         {
