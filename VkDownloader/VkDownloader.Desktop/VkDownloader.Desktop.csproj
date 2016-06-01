@@ -55,10 +55,6 @@
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.4-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Prism, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.1.0\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
@@ -83,10 +79,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="VkNet, Version=1.21.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VkNet.1.21.0\lib\net40\VkNet.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -154,6 +146,10 @@
     <ProjectReference Include="..\..\WinVkSdk\Bld.WinVkSdk\Bld.WinVkSdk.Wpf\Bld.WinVkSdk.Wpf.csproj">
       <Project>{6abaac38-1176-42b4-b3b1-f139e1dbd745}</Project>
       <Name>Bld.WinVkSdk.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WinVkSdk\Bld.WinVkSdk\Bld.WinVkSdk\Bld.WinVkSdk.csproj">
+      <Project>{8ebac898-f9c8-4bf5-a8ca-15bf9166db8a}</Project>
+      <Name>Bld.WinVkSdk</Name>
     </ProjectReference>
     <ProjectReference Include="..\VkDownloader.Settings.Win\VkDownloader.Settings.Win.csproj">
       <Project>{e6f94901-2071-4b10-bcc5-7903c3dcf79b}</Project>

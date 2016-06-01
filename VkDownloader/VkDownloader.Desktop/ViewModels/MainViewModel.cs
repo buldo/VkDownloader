@@ -2,11 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using Bld.WinVkSdk;
+using Bld.WinVkSdk.Cache;
 using Prism.Interactivity.InteractionRequest;
 using VkDownloader.Desktop.Notifications;
-using VkNet;
-using VkNet.Exception;
-using VkNet.Model.RequestParams;
 
 namespace VkDownloader.Desktop.ViewModels
 {
@@ -18,7 +17,7 @@ namespace VkDownloader.Desktop.ViewModels
     class MainViewModel : BindableBase
     {
         private readonly ISettings _settings;
-        private readonly VkApi _api = new VkApi() {RequestsPerSecond = 3};
+        private VkClient _client;
         private readonly object _dialogsLock = new object();
         private string _name;
 
@@ -54,73 +53,69 @@ namespace VkDownloader.Desktop.ViewModels
 
         private async void ExecuteLoaded()
         {
-            if (CheckAuthentication())
-            {
-                ReloadDialogsAsync();
-            }
-            else
-            {
-                var notification = new AuthNotification(_settings.AppId) {};
-                await AuthInteractionRequest.RaiseAsync(notification);
-                if (notification.Confirmed)
-                {
-                    _settings.AccessToken = notification.AccessToken;
-                    _api.Authorize(_settings.AccessToken);
-                    _api.RequestsPerSecond = 1;
-                    if (_api.IsAuthorized)
-                    {
-                        ReloadDialogsAsync();
-                    }
-                }    
-            }
+            _client = new VkClient(GetTokenAsync, new InMemoryStorage());   
         }
 
-        private bool CheckAuthentication()
+        //private bool CheckAuthentication()
+        //{
+        //    if (string.IsNullOrWhiteSpace(_settings.AccessToken))
+        //    {
+        //        return false;
+        //    }
+            
+        //    _api.Authorize(_settings.AccessToken);
+
+        //    try
+        //    {
+        //        var profile = _api.Account.GetProfileInfo();
+        //        Name = $"{profile.FirstName} {profile.LastName}";
+        //    }
+        //    catch (UserAuthorizationFailException ex)
+        //    {
+        //        return false;
+        //    }
+
+        //    return _api.IsAuthorized;
+        //}
+
+        //private async void ReloadDialogsAsync()
+        //{
+        //    await Task.Run(() =>
+        //    {
+
+        //        lock (_dialogsLock)
+        //        {
+        //            Dialogs.Clear();
+        //            var dialogs = _api.Messages.GetDialogs(new MessagesDialogsGetParams() { Count = 10 });
+        //            try
+        //            {
+
+        //                foreach (var dialog in dialogs.Messages)
+        //                {
+        //                    Dialogs.Add(new DialogViewModel(_api, dialog));
+        //                }
+
+        //            }
+        //            catch (Exception)
+        //            {
+
+        //            }
+        //        }
+        //    });
+        //}
+
+        private async Task<string> GetTokenAsync()
         {
             if (string.IsNullOrWhiteSpace(_settings.AccessToken))
             {
-                return false;
-            }
-            
-            _api.Authorize(_settings.AccessToken);
-
-            try
-            {
-                var profile = _api.Account.GetProfileInfo();
-                Name = $"{profile.FirstName} {profile.LastName}";
-            }
-            catch (UserAuthorizationFailException ex)
-            {
-                return false;
-            }
-
-            return _api.IsAuthorized;
-        }
-
-        private async void ReloadDialogsAsync()
-        {
-            await Task.Run(() =>
-            {
-
-                lock (_dialogsLock)
+                var notification = new AuthNotification(_settings.AppId);
+                var request = await AuthInteractionRequest.RaiseAsync(notification);
+                if (request.Confirmed)
                 {
-                    Dialogs.Clear();
-                    var dialogs = _api.Messages.GetDialogs(new MessagesDialogsGetParams() { Count = 10 });
-                    try
-                    {
-
-                        foreach (var dialog in dialogs.Messages)
-                        {
-                            Dialogs.Add(new DialogViewModel(_api, dialog));
-                        }
-
-                    }
-                    catch (Exception)
-                    {
-
-                    }
+                    return _settings.AccessToken = request.AccessToken;
                 }
-            });
+            }
+            return _settings.AccessToken;
         }
     }
 }
