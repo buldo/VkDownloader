@@ -1,41 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Prism.Mvvm;
-using VkNet;
-using VkNet.Model;
-
-namespace VkDownloader.Desktop.ViewModels
+﻿namespace VkDownloader.Desktop.ViewModels
 {
+    using System;
+    using System.Windows.Input;
+
+    using Prism.Mvvm;
+    
+    using Bld.WinVkSdk.Models;
+
+    using Prism.Commands;
+
     internal class DialogViewModel : BindableBase
     {
-        private Message _headMessage;
-        private VkApi _api;
+        private readonly VkDialog _dialog;
 
-        public DialogViewModel(VkApi _api, Message headMessage)
+        private readonly DelegateCommand _downloadCommand;
+
+        public DialogViewModel(VkDialog dialog)
         {
-            this._api = _api;
-            this._headMessage = headMessage;
-
-            if (headMessage.ChatId.HasValue)
-            {
-                DialogName = headMessage.Title;
-            }
-            else
-            {
-                if(headMessage.UserId.HasValue && headMessage.UserId > 0)
-                {
-                    var user = _api.Users.Get(headMessage.UserId.Value);
-                    DialogName = $"{user.FirstName} {user.LastName}";
-                }
-            }
+            _dialog = dialog;
+            _downloadCommand = new DelegateCommand(ExecuteDownload);
         }
 
-        public string DialogName { get; }
+        public event EventHandler<EventArgs> DownloadRequested;
 
+        public string DialogName => _dialog.Title;
 
+        public ICommand DownloadCommand => _downloadCommand;
+
+        private void ExecuteDownload()
+        {
+            OnDownloadRequested();
+        }
+
+        protected virtual void OnDownloadRequested()
+        {
+            DownloadRequested?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

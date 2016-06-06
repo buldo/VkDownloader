@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.25302.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VkDownloader.Desktop", "VkDownloader.Desktop\VkDownloader.Desktop.csproj", "{8F2BC308-7D48-415A-BE1F-17821787FCC8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F1895DEC-D0B4-42AB-8D4F-D14975107ECB} = {F1895DEC-D0B4-42AB-8D4F-D14975107ECB}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VkDownloader.Settings", "VkDownloader.Settings\VkDownloader.Settings.csproj", "{C88BDEEE-E9CC-4823-9BB0-0EC3B9F640C2}"
 EndProject
@@ -17,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bld.WinVkSdk", "..\WinVkSdk\Bld.WinVkSdk\Bld.WinVkSdk\Bld.WinVkSdk.csproj", "{8EBAC898-F9C8-4BF5-A8CA-15BF9166DB8A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bld.WinVkSdk.Wpf", "..\WinVkSdk\Bld.WinVkSdk\Bld.WinVkSdk.Wpf\Bld.WinVkSdk.Wpf.csproj", "{6ABAAC38-1176-42B4-B3B1-F139E1DBD745}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bld.WinVkSdk.Core", "..\WinVkSdk\Bld.WinVkSdk\Bld.WinVkSdk.Core\Bld.WinVkSdk.Core.csproj", "{F1895DEC-D0B4-42AB-8D4F-D14975107ECB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +49,10 @@ Global
 		{6ABAAC38-1176-42B4-B3B1-F139E1DBD745}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ABAAC38-1176-42B4-B3B1-F139E1DBD745}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ABAAC38-1176-42B4-B3B1-F139E1DBD745}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1895DEC-D0B4-42AB-8D4F-D14975107ECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1895DEC-D0B4-42AB-8D4F-D14975107ECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1895DEC-D0B4-42AB-8D4F-D14975107ECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1895DEC-D0B4-42AB-8D4F-D14975107ECB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,23 +2,33 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Data;
+
 using Bld.WinVkSdk;
 using Bld.WinVkSdk.Cache;
+
 using Prism.Interactivity.InteractionRequest;
+
 using VkDownloader.Desktop.Notifications;
 
 namespace VkDownloader.Desktop.ViewModels
 {
     using System.Windows.Input;
+
+    using Bld.WinVkSdk.Cache.InMemory;
+
     using Prism.Commands;
     using Prism.Mvvm;
+
     using Settings;
 
     class MainViewModel : BindableBase
     {
         private readonly ISettings _settings;
-        private VkClient _client;
+
+        private VkSdk _sdk;
+
         private readonly object _dialogsLock = new object();
+
         private string _name;
 
         public MainViewModel(ISettings settings)
@@ -48,62 +58,76 @@ namespace VkDownloader.Desktop.ViewModels
         public ObservableCollection<DialogViewModel> Dialogs { get; } = new ObservableCollection<DialogViewModel>();
 
         public ICommand LoadedCommand { get; }
-        
+
         public InteractionRequest<AuthNotification> AuthInteractionRequest { get; }
 
-        private async void ExecuteLoaded()
+        private void ExecuteLoaded()
         {
-            _client = new VkClient(GetTokenAsync, new InMemoryStorage());   
+            _sdk = new VkSdk(GetTokenAsync, new InMemoryStorage());
+
+            lock (_dialogsLock)
+            {
+                foreach (var dialog in _sdk.Dialogs.GetDialogs())
+                {
+                    var dialogViewModel = new DialogViewModel(dialog);
+                    dialogViewModel.DownloadRequested += DialogViewModelOnDownloadRequested;
+                    Dialogs.Add(dialogViewModel);
+                }
+            }
         }
 
-        //private bool CheckAuthentication()
-        //{
-        //    if (string.IsNullOrWhiteSpace(_settings.AccessToken))
-        //    {
-        //        return false;
-        //    }
-            
-        //    _api.Authorize(_settings.AccessToken);
+        private void DialogViewModelOnDownloadRequested(object sender, EventArgs eventArgs)
+        {
+            throw new NotImplementedException();
+        }
 
-        //    try
-        //    {
-        //        var profile = _api.Account.GetProfileInfo();
-        //        Name = $"{profile.FirstName} {profile.LastName}";
-        //    }
-        //    catch (UserAuthorizationFailException ex)
-        //    {
-        //        return false;
-        //    }
+        // private bool CheckAuthentication()
+        // {
+        // if (string.IsNullOrWhiteSpace(_settings.AccessToken))
+        // {
+        // return false;
+        // }
 
-        //    return _api.IsAuthorized;
-        //}
+        // _api.Authorize(_settings.AccessToken);
 
-        //private async void ReloadDialogsAsync()
-        //{
-        //    await Task.Run(() =>
-        //    {
+        // try
+        // {
+        // var profile = _api.Account.GetProfileInfo();
+        // Name = $"{profile.FirstName} {profile.LastName}";
+        // }
+        // catch (UserAuthorizationFailException ex)
+        // {
+        // return false;
+        // }
 
-        //        lock (_dialogsLock)
-        //        {
-        //            Dialogs.Clear();
-        //            var dialogs = _api.Messages.GetDialogs(new MessagesDialogsGetParams() { Count = 10 });
-        //            try
-        //            {
+        // return _api.IsAuthorized;
+        // }
 
-        //                foreach (var dialog in dialogs.Messages)
-        //                {
-        //                    Dialogs.Add(new DialogViewModel(_api, dialog));
-        //                }
+        // private async void ReloadDialogsAsync()
+        // {
+        // await Task.Run(() =>
+        // {
 
-        //            }
-        //            catch (Exception)
-        //            {
+        // lock (_dialogsLock)
+        // {
+        // Dialogs.Clear();
+        // var dialogs = _api.Messages.GetDialogs(new MessagesDialogsGetParams() { Count = 10 });
+        // try
+        // {
 
-        //            }
-        //        }
-        //    });
-        //}
+        // foreach (var dialog in dialogs.Messages)
+        // {
+        // Dialogs.Add(new DialogViewModel(_api, dialog));
+        // }
 
+        // }
+        // catch (Exception)
+        // {
+
+        // }
+        // }
+        // });
+        // }
         private async Task<string> GetTokenAsync()
         {
             if (string.IsNullOrWhiteSpace(_settings.AccessToken))
@@ -115,6 +139,7 @@ namespace VkDownloader.Desktop.ViewModels
                     return _settings.AccessToken = request.AccessToken;
                 }
             }
+
             return _settings.AccessToken;
         }
     }

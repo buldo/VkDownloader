@@ -9,7 +9,6 @@ using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using VkDownloader.Desktop.Notifications;
 using VkDownloader.Settings;
-using VkNet;
 
 namespace VkDownloader.Desktop.ViewModels
 {
