@@ -102,9 +102,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Models\VkPhotosDownloader.cs" />
     <Compile Include="Notifications\AuthNotification.cs" />
+    <Compile Include="Notifications\ChooseFolderConfirmation.cs" />
     <Compile Include="ViewModels\AuthViewModel.cs" />
     <Compile Include="ViewModels\DialogViewModel.cs" />
+    <Compile Include="ViewModels\DownladTaskViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\AuthView.xaml.cs">
       <DependentUpon>AuthView.xaml</DependentUpon>

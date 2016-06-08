@@ -11,19 +11,19 @@
 
     internal class DialogViewModel : BindableBase
     {
-        private readonly VkDialog _dialog;
-
         private readonly DelegateCommand _downloadCommand;
 
         public DialogViewModel(VkDialog dialog)
         {
-            _dialog = dialog;
+            Dialog = dialog;
             _downloadCommand = new DelegateCommand(ExecuteDownload);
         }
 
         public event EventHandler<EventArgs> DownloadRequested;
 
-        public string DialogName => _dialog.Title;
+        public VkDialog Dialog { get; }
+
+        public string DialogName => Dialog.Title;
 
         public ICommand DownloadCommand => _downloadCommand;
 

@@ -21,6 +21,8 @@ namespace VkDownloader.Desktop.ViewModels
 
     using Settings;
 
+    using VkDownloader.Desktop.Models;
+
     class MainViewModel : BindableBase
     {
         private readonly ISettings _settings;
@@ -38,6 +40,7 @@ namespace VkDownloader.Desktop.ViewModels
             BindingOperations.EnableCollectionSynchronization(Dialogs, _dialogsLock);
 
             AuthInteractionRequest = new InteractionRequest<AuthNotification>();
+            ChooseFolderRequest = new InteractionRequest<ChooseFolderConfirmation>();
 
             LoadedCommand = new DelegateCommand(ExecuteLoaded);
         }
@@ -57,9 +60,13 @@ namespace VkDownloader.Desktop.ViewModels
 
         public ObservableCollection<DialogViewModel> Dialogs { get; } = new ObservableCollection<DialogViewModel>();
 
+        public ObservableCollection<DownladTaskViewModel> DownloadTasks { get; } = new ObservableCollection<DownladTaskViewModel>();
+
         public ICommand LoadedCommand { get; }
 
         public InteractionRequest<AuthNotification> AuthInteractionRequest { get; }
+
+        public InteractionRequest<ChooseFolderConfirmation> ChooseFolderRequest { get; }
 
         private void ExecuteLoaded()
         {
@@ -76,9 +83,15 @@ namespace VkDownloader.Desktop.ViewModels
             }
         }
 
-        private void DialogViewModelOnDownloadRequested(object sender, EventArgs eventArgs)
+        private async void DialogViewModelOnDownloadRequested(object sender, EventArgs eventArgs)
         {
-            throw new NotImplementedException();
+            var dialogVm = (DialogViewModel)sender;
+            var confirmation = new ChooseFolderConfirmation();
+            await ChooseFolderRequest.RaiseAsync(confirmation);
+            if (confirmation.Confirmed)
+            {
+                DownloadTasks.Add(new DownladTaskViewModel(new VkPhotosDownloader(dialogVm.Dialog)));
+            }
         }
 
         // private bool CheckAuthentication()
