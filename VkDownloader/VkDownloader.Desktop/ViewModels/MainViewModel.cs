@@ -93,7 +93,7 @@ namespace VkDownloader.Desktop.ViewModels
             if (confirmation.Confirmed)
             {
                 var dtask =
-                    new DownladTaskViewModel(new VkPhotosDownloader(dialogVm.Dialog.Photos, confirmation.FolderPath));
+                    new DownladTaskViewModel(dialogVm.DialogName, new VkPhotosDownloader(dialogVm.Dialog.Photos, confirmation.FolderPath));
                 DownloadTasks.Add(dtask);
                 await dtask.DownloadAsync();
             }

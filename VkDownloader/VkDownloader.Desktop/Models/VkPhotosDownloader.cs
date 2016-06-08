@@ -16,29 +16,44 @@ namespace VkDownloader.Desktop.Models
     {
         private readonly IEnumerable<VkPhoto> _photos;
         private readonly string _folder;
+        private readonly List<string> _photosUrls = new List<string>();
+
 
         public VkPhotosDownloader(IEnumerable<VkPhoto> photos, string folder)
         {
             _photos = photos;
             _folder = folder;
         }
+
+        public int PhotosCount => _photosUrls.Count;
+
+        public event EventHandler<EventArgs> PhotosCountUpdated;
         
         public async Task DownloadAsync(IProgress<int> progress, CancellationToken ct)
         {
             await Task.Run(
                 () =>
                     {
-                        var photos = _photos.ToList();
+                        foreach (var photo in _photos)
+                        {
+                            _photosUrls.Add(GetMaxImageUrl(photo));
+                        }
+                        OnPhotosCountUpdated();
+                    });
+
+            await Task.Run(
+                () =>
+                    {
+                        
                         var client = new WebClient();
                         int i = 0;
-                        foreach (var photo in photos)
+                        foreach (var photoUrl in _photosUrls)
                         {
                             if (ct.IsCancellationRequested)
                             {
                                 return;
                             }
 
-                            var photoUrl = GetMaxImageUrl(photo);
                             client.DownloadFile(photoUrl, Path.Combine(_folder, i.ToString("D5") + "." + photoUrl.Split('.').Last()));
                             
                             progress.Report(++i);
@@ -75,6 +90,11 @@ namespace VkDownloader.Desktop.Models
             }
             
             return photo.Photo75;
+        }
+
+        protected virtual void OnPhotosCountUpdated()
+        {
+            PhotosCountUpdated?.Invoke(this, EventArgs.Empty);
         }
     }
 }

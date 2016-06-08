@@ -39,8 +39,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition MinHeight="45"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
         <ListView Grid.Row="0" ItemsSource="{Binding Dialogs}" SelectionMode="Single" Width="Auto">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -61,7 +62,28 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <StatusBar Grid.Row="1">
+        <GridSplitter Grid.Row="1" Height="2" Background="Black"/>
+        <ListView Grid.Row="2" ItemsSource="{Binding DownloadTasks}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="viewModels:DownladTaskViewModel">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding Title}"/>
+
+                        <TextBlock Grid.Column="1" Text="{Binding Status}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StatusBar Grid.Row="3">
             <TextBlock Text="{Binding Name, Mode=OneWay}"></TextBlock>
         </StatusBar>
     </Grid>
