@@ -33,6 +33,8 @@ namespace VkDownloader.Desktop.ViewModels
 
         private string _name;
 
+        private string _token;
+
         public MainViewModel(ISettings settings)
         {
             _settings = settings;
@@ -71,7 +73,7 @@ namespace VkDownloader.Desktop.ViewModels
         private void ExecuteLoaded()
         {
             _sdk = new VkSdk(GetTokenAsync, new InMemoryStorage());
-
+            _sdk.Friends.Get();
             lock (_dialogsLock)
             {
                 foreach (var dialog in _sdk.Dialogs.GetDialogs())
@@ -90,7 +92,10 @@ namespace VkDownloader.Desktop.ViewModels
             await ChooseFolderRequest.RaiseAsync(confirmation);
             if (confirmation.Confirmed)
             {
-                DownloadTasks.Add(new DownladTaskViewModel(new VkPhotosDownloader(dialogVm.Dialog)));
+                var dtask =
+                    new DownladTaskViewModel(new VkPhotosDownloader(dialogVm.Dialog.Photos, confirmation.FolderPath));
+                DownloadTasks.Add(dtask);
+                await dtask.DownloadAsync();
             }
         }
 
@@ -143,17 +148,16 @@ namespace VkDownloader.Desktop.ViewModels
         // }
         private async Task<string> GetTokenAsync()
         {
-            if (string.IsNullOrWhiteSpace(_settings.AccessToken))
+            if(string.IsNullOrWhiteSpace(_token))
             {
                 var notification = new AuthNotification(_settings.AppId);
                 var request = await AuthInteractionRequest.RaiseAsync(notification);
                 if (request.Confirmed)
                 {
-                    return _settings.AccessToken = request.AccessToken;
+                    return _token = request.AccessToken;
                 }
             }
-
-            return _settings.AccessToken;
+            return _token;
         }
     }
 }

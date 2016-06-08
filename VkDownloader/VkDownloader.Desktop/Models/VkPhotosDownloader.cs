@@ -38,12 +38,43 @@ namespace VkDownloader.Desktop.Models
                                 return;
                             }
 
-                            client.DownloadFile(photo.Photo2560, Path.Combine(_folder, i.ToString("D5")));
+                            var photoUrl = GetMaxImageUrl(photo);
+                            client.DownloadFile(photoUrl, Path.Combine(_folder, i.ToString("D5") + "." + photoUrl.Split('.').Last()));
                             
                             progress.Report(++i);
                         }
                         
                     }, ct);
+        }
+
+        private static string GetMaxImageUrl(VkPhoto photo)
+        {
+            if (!string.IsNullOrWhiteSpace(photo.Photo2560))
+            {
+                return photo.Photo2560;
+            }
+
+            if (!string.IsNullOrWhiteSpace(photo.Photo1280))
+            {
+                return photo.Photo1280;
+            }
+
+            if (!string.IsNullOrWhiteSpace(photo.Photo807))
+            {
+                return photo.Photo807;
+            }
+
+            if (!string.IsNullOrWhiteSpace(photo.Photo604))
+            {
+                return photo.Photo604;
+            }
+
+            if (!string.IsNullOrWhiteSpace(photo.Photo130))
+            {
+                return photo.Photo130;
+            }
+            
+            return photo.Photo75;
         }
     }
 }

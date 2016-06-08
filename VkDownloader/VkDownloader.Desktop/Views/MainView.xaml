@@ -8,6 +8,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:viewModels="clr-namespace:VkDownloader.Desktop.ViewModels"
         xmlns:views="clr-namespace:VkDownloader.Desktop.Views"
+        xmlns:actions="clr-namespace:VkDownloader.Desktop.Actions"
         mvvm:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
@@ -28,6 +29,9 @@
                     <views:AuthView/>
                 </mvvm:PopupWindowAction.WindowContent>
             </mvvm:PopupWindowAction>
+        </mvvm:InteractionRequestTrigger>
+        <mvvm:InteractionRequestTrigger SourceObject="{Binding ChooseFolderRequest, Mode=OneTime}">
+            <actions:ChooseFolderTriggerAction/>
         </mvvm:InteractionRequestTrigger>
         
     </i:Interaction.Triggers>
