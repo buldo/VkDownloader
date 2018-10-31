@@ -13,7 +13,7 @@
         private readonly IAuthenticator _authenticator;
         private readonly string _apiVersion;
 
-        public ApiRequester(Func<Task<string>> tokenAccessFunc, string apiVersion)
+        public ApiRequester(Func<string> tokenAccessFunc, string apiVersion)
         {
             _apiVersion = apiVersion;
             _baseUri = new Uri(BaseUrl);

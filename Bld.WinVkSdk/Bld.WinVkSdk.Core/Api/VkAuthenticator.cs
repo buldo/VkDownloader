@@ -1,23 +1,23 @@
-﻿namespace Bld.WinVkSdk.Core.Api {
+﻿namespace Bld.WinVkSdk.Core.Api
+{
     using System;
-    using System.Threading.Tasks;
     using RestSharp;
     using RestSharp.Authenticators;
 
     internal class VkAuthenticator : IAuthenticator
     {
-        private readonly Func<Task<string>> _tokenAccessFunc;
+        private readonly Func<string> _tokenAccessFunc;
 
-        public VkAuthenticator(Func<Task<string>> tokenAccessFunc)
+        public VkAuthenticator(Func<string> tokenAccessFunc)
         {
             _tokenAccessFunc = tokenAccessFunc;
         }
 
-        public async void Authenticate(IRestClient client, IRestRequest request)
+        public void Authenticate(IRestClient client, IRestRequest request)
         {
-            var tocken = await _tokenAccessFunc.Invoke();
+            var token = _tokenAccessFunc();
 
-            request.AddParameter("access_token", tocken, ParameterType.GetOrPost);
+            request.AddParameter("access_token", token, ParameterType.GetOrPost);
         }
     }
 }

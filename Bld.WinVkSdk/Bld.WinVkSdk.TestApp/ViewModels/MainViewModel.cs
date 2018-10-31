@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using Bld.WinVkSdk.Cache;
@@ -59,7 +60,7 @@ namespace Bld.WinVkSdk.TestApp.ViewModels
 
         private void ExecuteLoaded()
         {
-            _client = new VkSdk(GetTokenAsync, new InMemoryStorage());
+            _client = new VkSdk(GetToken, new InMemoryStorage());
 
             lock (_friendsLock)
             {
@@ -78,17 +79,24 @@ namespace Bld.WinVkSdk.TestApp.ViewModels
             }
         }
 
-        private async Task<string> GetTokenAsync()
+        private string GetToken()
         {
+            var resetEvent = new ManualResetEventSlim(true);
             if (string.IsNullOrWhiteSpace(_cachedToken))
             {
+                resetEvent.Reset();
                 var notification = new AuthNotification(AppId.Value);
-                var request = await AuthInteractionRequest.RaiseAsync(notification);
-                if (request.Confirmed)
+                AuthInteractionRequest.Raise(notification, authNotification =>
                 {
-                    return _cachedToken = request.AccessToken;
-                }
+                    if (authNotification.Confirmed)
+                    {
+                        _cachedToken = authNotification.AccessToken;
+                        resetEvent.Set();
+                    }
+                });
             }
+
+            resetEvent.Wait();
             return _cachedToken;
         }
     }

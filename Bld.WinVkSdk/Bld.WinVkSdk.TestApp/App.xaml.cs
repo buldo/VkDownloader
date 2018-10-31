@@ -6,20 +6,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Prism;
+using Prism.Ioc;
+using Prism.Unity;
 
 namespace Bld.WinVkSdk.TestApp
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : PrismApplication
     {
-        protected override void OnStartup(StartupEventArgs e)
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            base.OnStartup(e);
+        }
 
-            var bootstrapper = new Bootstrapper();
-            bootstrapper.Run();
+        protected override Window CreateShell()
+        {
+            return Container.Resolve<Views.MainView>();
         }
     }
 }

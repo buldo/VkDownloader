@@ -29,7 +29,7 @@ namespace Bld.WinVkSdk
                     });
         }
 
-        public VkSdk(Func<Task<string>> tokenAccessFunc, IApiCache cache)
+        public VkSdk(Func<string> tokenAccessFunc, IApiCache cache)
         {
             _client = new VkClient(tokenAccessFunc);
             Friends = new FriendsCollection(_client, cache);

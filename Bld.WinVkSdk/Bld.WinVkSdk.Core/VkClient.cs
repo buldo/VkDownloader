@@ -8,7 +8,7 @@
     {
         private const string ApiVersion = "5.52";
 
-        public VkClient(Func<Task<string>> tokenAccessFunc)
+        public VkClient(Func<string> tokenAccessFunc)
         {
             var apiRequester = new ApiRequester(tokenAccessFunc, ApiVersion);
 
