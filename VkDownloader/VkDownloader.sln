@@ -1,27 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28218.60
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VkDownloader.Desktop", "VkDownloader.Desktop\VkDownloader.Desktop.csproj", "{8F2BC308-7D48-415A-BE1F-17821787FCC8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F1895DEC-D0B4-42AB-8D4F-D14975107ECB} = {F1895DEC-D0B4-42AB-8D4F-D14975107ECB}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VkDownloader.Settings", "VkDownloader.Settings\VkDownloader.Settings.csproj", "{C88BDEEE-E9CC-4823-9BB0-0EC3B9F640C2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CDE5081D-93CD-4EA2-94FA-CB06A1030F57}"
 	ProjectSection(SolutionItems) = preProject
 		PreBuild.ps1 = PreBuild.ps1
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VkDownloader.Settings.Win", "VkDownloader.Settings.Win\VkDownloader.Settings.Win.csproj", "{E6F94901-2071-4B10-BCC5-7903C3DCF79B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SKD", "SKD", "{7FC43748-853A-43B0-80E7-A39BAE70654F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bld.WinVkSdk", "..\WinVkSdk\Bld.WinVkSdk\Bld.WinVkSdk\Bld.WinVkSdk.csproj", "{8EBAC898-F9C8-4BF5-A8CA-15BF9166DB8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bld.WinVkSdk", "..\Bld.WinVkSdk\Bld.WinVkSdk\Bld.WinVkSdk.csproj", "{8EBAC898-F9C8-4BF5-A8CA-15BF9166DB8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bld.WinVkSdk.Wpf", "..\WinVkSdk\Bld.WinVkSdk\Bld.WinVkSdk.Wpf\Bld.WinVkSdk.Wpf.csproj", "{6ABAAC38-1176-42B4-B3B1-F139E1DBD745}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bld.WinVkSdk.Core", "..\Bld.WinVkSdk\Bld.WinVkSdk.Core\Bld.WinVkSdk.Core.csproj", "{F1895DEC-D0B4-42AB-8D4F-D14975107ECB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bld.WinVkSdk.Core", "..\WinVkSdk\Bld.WinVkSdk\Bld.WinVkSdk.Core\Bld.WinVkSdk.Core.csproj", "{F1895DEC-D0B4-42AB-8D4F-D14975107ECB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bld.WinVkSdk.TestApp", "..\Bld.WinVkSdk\Bld.WinVkSdk.TestApp\Bld.WinVkSdk.TestApp.csproj", "{305C08A2-EB0A-4D22-BF16-BB42679F8F05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bld.WinVkSdk.Wpf", "..\Bld.WinVkSdk\Bld.WinVkSdk.Wpf\Bld.WinVkSdk.Wpf.csproj", "{6ABAAC38-1176-42B4-B3B1-F139E1DBD745}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,28 +33,30 @@ Global
 		{8F2BC308-7D48-415A-BE1F-17821787FCC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F2BC308-7D48-415A-BE1F-17821787FCC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F2BC308-7D48-415A-BE1F-17821787FCC8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C88BDEEE-E9CC-4823-9BB0-0EC3B9F640C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C88BDEEE-E9CC-4823-9BB0-0EC3B9F640C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C88BDEEE-E9CC-4823-9BB0-0EC3B9F640C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C88BDEEE-E9CC-4823-9BB0-0EC3B9F640C2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E6F94901-2071-4B10-BCC5-7903C3DCF79B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6F94901-2071-4B10-BCC5-7903C3DCF79B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E6F94901-2071-4B10-BCC5-7903C3DCF79B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E6F94901-2071-4B10-BCC5-7903C3DCF79B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8EBAC898-F9C8-4BF5-A8CA-15BF9166DB8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8EBAC898-F9C8-4BF5-A8CA-15BF9166DB8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EBAC898-F9C8-4BF5-A8CA-15BF9166DB8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EBAC898-F9C8-4BF5-A8CA-15BF9166DB8A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6ABAAC38-1176-42B4-B3B1-F139E1DBD745}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6ABAAC38-1176-42B4-B3B1-F139E1DBD745}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6ABAAC38-1176-42B4-B3B1-F139E1DBD745}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6ABAAC38-1176-42B4-B3B1-F139E1DBD745}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F1895DEC-D0B4-42AB-8D4F-D14975107ECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F1895DEC-D0B4-42AB-8D4F-D14975107ECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1895DEC-D0B4-42AB-8D4F-D14975107ECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1895DEC-D0B4-42AB-8D4F-D14975107ECB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{305C08A2-EB0A-4D22-BF16-BB42679F8F05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{305C08A2-EB0A-4D22-BF16-BB42679F8F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{305C08A2-EB0A-4D22-BF16-BB42679F8F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{305C08A2-EB0A-4D22-BF16-BB42679F8F05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ABAAC38-1176-42B4-B3B1-F139E1DBD745}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ABAAC38-1176-42B4-B3B1-F139E1DBD745}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ABAAC38-1176-42B4-B3B1-F139E1DBD745}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ABAAC38-1176-42B4-B3B1-F139E1DBD745}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8EBAC898-F9C8-4BF5-A8CA-15BF9166DB8A} = {7FC43748-853A-43B0-80E7-A39BAE70654F}
+		{F1895DEC-D0B4-42AB-8D4F-D14975107ECB} = {7FC43748-853A-43B0-80E7-A39BAE70654F}
+		{305C08A2-EB0A-4D22-BF16-BB42679F8F05} = {7FC43748-853A-43B0-80E7-A39BAE70654F}
+		{6ABAAC38-1176-42B4-B3B1-F139E1DBD745} = {7FC43748-853A-43B0-80E7-A39BAE70654F}
 	EndGlobalSection
 EndGlobal

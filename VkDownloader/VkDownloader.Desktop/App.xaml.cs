@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+using Prism.Ioc;
+using Prism.Unity;
+using VkDownloader.Desktop.Settings;
+using VkDownloader.Desktop.Views;
 
 namespace VkDownloader.Desktop
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : PrismApplication
     {
-        protected override void OnStartup(StartupEventArgs e)
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            base.OnStartup(e);
+            containerRegistry.RegisterInstance<ISettings>(new Settings.Settings());
+        }
 
-            var bootstrapper = new Bootstrapper();
-            bootstrapper.Run();
+        protected override Window CreateShell()
+        {
+            return Container.Resolve<MainView>();
         }
     }
 }

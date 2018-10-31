@@ -1,4 +1,4 @@
-﻿namespace VkDownloader.Settings
+﻿namespace VkDownloader.Desktop.Settings
 {
     public interface ISettings
     {

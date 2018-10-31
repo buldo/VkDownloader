@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
@@ -72,7 +73,7 @@ namespace VkDownloader.Desktop.ViewModels
 
         private void ExecuteLoaded()
         {
-            _sdk = new VkSdk(GetTokenAsync, new InMemoryStorage());
+            _sdk = new VkSdk(GetToken, new InMemoryStorage());
             _sdk.Friends.Get();
             lock (_dialogsLock)
             {
@@ -85,18 +86,20 @@ namespace VkDownloader.Desktop.ViewModels
             }
         }
 
-        private async void DialogViewModelOnDownloadRequested(object sender, EventArgs eventArgs)
+        private void DialogViewModelOnDownloadRequested(object sender, EventArgs eventArgs)
         {
             var dialogVm = (DialogViewModel)sender;
             var confirmation = new ChooseFolderConfirmation();
-            await ChooseFolderRequest.RaiseAsync(confirmation);
-            if (confirmation.Confirmed)
+            ChooseFolderRequest.Raise(confirmation, async folderConfirmation =>
             {
-                var dtask =
-                    new DownladTaskViewModel(dialogVm.DialogName, new VkPhotosDownloader(dialogVm.Dialog.Photos, confirmation.FolderPath));
-                DownloadTasks.Add(dtask);
-                await dtask.DownloadAsync();
-            }
+                if (folderConfirmation.Confirmed)
+                {
+                    var dtask =
+                        new DownladTaskViewModel(dialogVm.DialogName, new VkPhotosDownloader(dialogVm.Dialog.Photos, confirmation.FolderPath));
+                    DownloadTasks.Add(dtask);
+                    await dtask.DownloadAsync();
+                }
+            });
         }
 
         // private bool CheckAuthentication()
@@ -146,17 +149,25 @@ namespace VkDownloader.Desktop.ViewModels
         // }
         // });
         // }
-        private async Task<string> GetTokenAsync()
+
+        private string GetToken()
         {
-            if(string.IsNullOrWhiteSpace(_token))
+            var resetEvent = new ManualResetEventSlim(true);
+            if (string.IsNullOrWhiteSpace(_token))
             {
+                resetEvent.Reset();
                 var notification = new AuthNotification(_settings.AppId);
-                var request = await AuthInteractionRequest.RaiseAsync(notification);
-                if (request.Confirmed)
+                AuthInteractionRequest.Raise(notification, authNotification =>
                 {
-                    return _token = request.AccessToken;
-                }
+                    if (authNotification.Confirmed)
+                    {
+                        _token = authNotification.AccessToken;
+                        resetEvent.Set();
+                    }
+                });
             }
+
+            resetEvent.Wait();
             return _token;
         }
     }

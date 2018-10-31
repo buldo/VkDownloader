@@ -8,12 +8,10 @@ using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using VkDownloader.Desktop.Notifications;
-using VkDownloader.Settings;
 
 namespace VkDownloader.Desktop.ViewModels
 {
-    class AuthViewModel : BindableBase, IInteractionRequestAware
-
+    internal class AuthViewModel : BindableBase, IInteractionRequestAware
     {
         #region Fields
 

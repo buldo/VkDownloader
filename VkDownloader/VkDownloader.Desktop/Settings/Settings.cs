@@ -1,4 +1,4 @@
-﻿namespace VkDownloader.Settings.Win
+﻿namespace VkDownloader.Desktop.Settings
 {
     using System;
     using System.Collections.Generic;

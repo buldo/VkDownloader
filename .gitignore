@@ -236,3 +236,4 @@ _Pvt_Extensions
 .fake/
 /VkDownloader/VkDownloader.Settings.Win/RealAppId.cs
 /Bld.WinVkSdk/Bld.WinVkSdk.TestApp/AppId.cs
+/VkDownloader/VkDownloader.Desktop/RealAppId.cs

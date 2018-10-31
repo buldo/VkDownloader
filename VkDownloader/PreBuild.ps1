@@ -4,7 +4,7 @@ Param(
 
 [string]$original=
 @'
-namespace VkDownloader.Settings.Win
+namespace VkDownloader.Desktop.Settings
 {{
     public partial class Settings
     {{
@@ -13,4 +13,4 @@ namespace VkDownloader.Settings.Win
 }}
 '@
 
-$original -f $appId | Out-File -FilePath "VkDownloader.Settings.Win\RealAppId.cs" 
+$original -f $appId | Out-File -FilePath "VkDownloader.Desktop\RealAppId.cs"
