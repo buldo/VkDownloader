@@ -33,7 +33,7 @@
         <mvvm:InteractionRequestTrigger SourceObject="{Binding ChooseFolderRequest, Mode=OneTime}">
             <actions:ChooseFolderTriggerAction/>
         </mvvm:InteractionRequestTrigger>
-        
+
     </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
@@ -56,7 +56,8 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="1" Text="{Binding DialogName}"/>
+                        <Image Width="30" Height="30" Stretch="UniformToFill" Grid.Column="0" Source="{Binding Photo}"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Title}"/>
                         <Button Grid.Column="2" Command="{Binding DownloadCommand}" Content="Download"/>
                     </Grid>
                 </DataTemplate>

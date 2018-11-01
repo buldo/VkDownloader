@@ -79,7 +79,7 @@
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="ViewModels\AuthViewModel.cs" />
-    <Compile Include="ViewModels\DialogViewModel.cs" />
+    <Compile Include="ViewModels\ConversationViewModel.cs" />
     <Compile Include="ViewModels\DownladTaskViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\AuthView.xaml.cs">
@@ -123,15 +123,18 @@
     <PackageReference Include="Prism.Unity">
       <Version>7.1.0.431</Version>
     </PackageReference>
+    <PackageReference Include="System.ValueTuple">
+      <Version>4.5.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Bld.WinVkSdk\Bld.WinVkSdk.Wpf\Bld.WinVkSdk.Wpf.csproj">
+    <ProjectReference Include="..\..\vk\VkNet\VkNet.csproj">
+      <Project>{a6f3a4c4-ddf3-4ab3-92cd-025538caadd0}</Project>
+      <Name>VkNet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bld.WinVkSdk.Wpf\Bld.WinVkSdk.Wpf.csproj">
       <Project>{6abaac38-1176-42b4-b3b1-f139e1dbd745}</Project>
       <Name>Bld.WinVkSdk.Wpf</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Bld.WinVkSdk\Bld.WinVkSdk\Bld.WinVkSdk.csproj">
-      <Project>{8ebac898-f9c8-4bf5-a8ca-15bf9166db8a}</Project>
-      <Name>Bld.WinVkSdk</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -20,29 +20,26 @@ namespace VkDownloader.Desktop.ViewModels
 
         private string _appId = string.Empty;
         private string _accessToken = string.Empty;
+        private string _version = string.Empty;
 
         private AuthNotification _notification;
 
         #endregion // Fields
         public string AppId
         {
-            get
-            {
-                return _appId;
-            }
+            get => _appId;
+            set => SetProperty(ref _appId, value);
+        }
 
-            set
-            {
-                SetProperty(ref _appId, value);
-            }
+        public string Version
+        {
+            get => _version;
+            set => SetProperty(ref _version, value);
         }
 
         public string AccessToken
         {
-            get
-            {
-                return _accessToken;
-            }
+            get => _accessToken;
 
             set
             {
@@ -64,15 +61,12 @@ namespace VkDownloader.Desktop.ViewModels
 
         public INotification Notification
         {
-            get
-            {
-                return _notification;
-            }
-
+            get => _notification;
             set
             {
                 SetProperty(ref _notification, (AuthNotification) value);
                 AppId = _notification.ApplicationId;
+                Version = _notification.Version;
             }
         }
 

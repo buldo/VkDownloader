@@ -9,8 +9,6 @@ namespace VkDownloader.Desktop.ViewModels
     using System.Threading;
     using System.Windows.Input;
 
-    using Bld.WinVkSdk.Models;
-
     using Prism.Commands;
     using Prism.Mvvm;
 
@@ -106,7 +104,7 @@ namespace VkDownloader.Desktop.ViewModels
         {
             _cancellationTokenSource.Cancel();
         }
-        
+
         private void DownloaderOnPhotosCountUpdated(object sender, EventArgs eventArgs)
         {
             ToProcessPhotosCnt = _downloader.PhotosCount;

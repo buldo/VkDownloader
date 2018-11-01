@@ -12,6 +12,6 @@
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <wpf:VkAuthUserControl ApplicationId="{Binding AppId}" Token="{Binding AccessToken}" ApiVersionString="5.52" PermissionsString="friends,messages"/>
+        <wpf:VkAuthUserControl ApplicationId="{Binding AppId}" Token="{Binding AccessToken}" ApiVersionString="{Binding Version}" PermissionsString="friends,messages"/>
     </Grid>
 </UserControl>

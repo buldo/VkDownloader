@@ -41,6 +41,12 @@ namespace Bld.WinVkSdk.Wpf
             typeof(VkAuthUserControl),
             new FrameworkPropertyMetadata(default(long), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
+        public static readonly DependencyProperty TokenExpireTimeProperty = DependencyProperty.Register(
+            "TokenExpireTime",
+            typeof(int),
+            typeof(VkAuthUserControl),
+            new FrameworkPropertyMetadata(default(int), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
         public VkAuthUserControl()
         {
             InitializeComponent();
@@ -48,32 +54,38 @@ namespace Bld.WinVkSdk.Wpf
 
         public string ApplicationId
         {
-            get { return (string)GetValue(ApplicationIdProperty); }
-            set { SetValue(ApplicationIdProperty, value); }
+            get => (string)GetValue(ApplicationIdProperty);
+            set => SetValue(ApplicationIdProperty, value);
         }
 
         public string Token
         {
-            get { return (string)GetValue(TokenProperty); }
-            set { SetValue(TokenProperty, value); }
+            get => (string)GetValue(TokenProperty);
+            set => SetValue(TokenProperty, value);
         }
 
         public string PermissionsString
         {
-            get { return (string)GetValue(PermissionsStringProperty); }
-            set { SetValue(PermissionsStringProperty, value); }
+            get => (string)GetValue(PermissionsStringProperty);
+            set => SetValue(PermissionsStringProperty, value);
         }
 
         public string ApiVersionString
         {
-            get { return (string)GetValue(ApiVersionStringProperty); }
-            set { SetValue(ApiVersionStringProperty, value); }
+            get => (string)GetValue(ApiVersionStringProperty);
+            set => SetValue(ApiVersionStringProperty, value);
         }
 
         public long UserId
         {
-            get { return (long)GetValue(UserIdProperty); }
-            set { SetValue(UserIdProperty, value); }
+            get => (long)GetValue(UserIdProperty);
+            set => SetValue(UserIdProperty, value);
+        }
+
+        public int TokenExpireTime
+        {
+            get => (int)GetValue(TokenExpireTimeProperty);
+            set => SetValue(TokenExpireTimeProperty, value);
         }
 
         private void WebBrowserOnNavigated(object sender, NavigationEventArgs e)
@@ -82,8 +94,10 @@ namespace Bld.WinVkSdk.Wpf
             {
                 string url = e.Uri.Fragment;
                 url = url.Trim('#');
-                Token = HttpUtility.ParseQueryString(url).Get("access_token");
-                UserId = long.Parse(HttpUtility.ParseQueryString(url).Get("user_id"));
+                var parsedUrl = HttpUtility.ParseQueryString(url);
+                Token = parsedUrl.Get("access_token");
+                UserId = long.Parse(parsedUrl.Get("user_id"));
+                TokenExpireTime = int.Parse(parsedUrl.Get("expires_in"));
             }
         }
 

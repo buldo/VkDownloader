@@ -4,15 +4,21 @@
 
     public class AuthNotification : Confirmation
     {
-        public AuthNotification(string appId)
+        public AuthNotification(string appId, string version)
         {
             Title = "Login";
             ApplicationId = appId;
-            AccessToken = string.Empty;
+            Version = version;
         }
 
         public string ApplicationId { get; }
 
-        public string AccessToken { get; set; }
+        public string AccessToken { get; set; } = string.Empty;
+
+        public long UserId { get; set; }
+
+        public int TokenExpireTime { get; set; }
+
+        public string Version { get; }
     }
 }

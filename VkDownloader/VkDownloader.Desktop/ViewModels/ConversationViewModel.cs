@@ -4,26 +4,28 @@
     using System.Windows.Input;
 
     using Prism.Mvvm;
-    
-    using Bld.WinVkSdk.Models;
 
     using Prism.Commands;
 
-    internal class DialogViewModel : BindableBase
+    internal class ConversationViewModel : BindableBase
     {
         private readonly DelegateCommand _downloadCommand;
 
-        public DialogViewModel(VkDialog dialog)
+        public ConversationViewModel(long id, string title, Uri photo)
         {
-            Dialog = dialog;
+            Id = id;
+            Title = title;
+            Photo = photo;
             _downloadCommand = new DelegateCommand(ExecuteDownload);
         }
 
         public event EventHandler<EventArgs> DownloadRequested;
 
-        public VkDialog Dialog { get; }
+        public long Id { get; }
 
-        public string DialogName => Dialog.Title;
+        public string Title { get; }
+
+        public Uri Photo { get; }
 
         public ICommand DownloadCommand => _downloadCommand;
 
